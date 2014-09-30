@@ -1,7 +1,5 @@
 # encoding=utf-8
 [IM]
-# IM聊天软件的聊天记录位置
-IMFile = D:/test.txt
 # 统计信息的分割符号
 DividSymbol = +
 # 统计信息的正则表达式
@@ -9,11 +7,5 @@ Regex = \S+(\+\S+)+
 # 统计开始的时间
 StartTime = 2014-09-15 18:42:15
 [EXCEL]
-#excel文件位置
-ExcelFile = d:/test.xsl
-#excel名字所在的列
-NameCol = A
-#名字所在的行
-NameRow = 3
-#每个人信息录入的起始位置
-StartCol = C
+#信息录入的起始位置的
+StartCol = 1
