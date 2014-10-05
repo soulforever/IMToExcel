@@ -9,8 +9,6 @@ Created on 2014��9��29��
 import control
 import myexcel
 import IMinfo
-import shutil
-import os
 
 
 def makeChoice():
