@@ -11,7 +11,7 @@ contol.py  --module for config and startup
 
 import os
 import shutil
-import ConfigParser
+from ConfigParser import ConfigParser
 
 
 def isCopy(srcFile, dstFile):
@@ -52,25 +52,55 @@ def synToSubmit(src, dst):
                 shutil.copy2(srcObj, dstObj)
 
 
-def readConfig(configName='IM', configFile='../etc/config'):
+def readConfig(section, option, Cfile='../etc/config'):
     'Read the config file to dictionary'
-    conf = ConfigParser.ConfigParser()
-    conf.read(configFile)
-    confDict = dict(conf.items(configName))
-    return confDict
+    conf = ConfigParser()
+    conf.read(Cfile)
+    return conf.get(section, option)
+
+
+def writeConfig(section, option, value, Cfile='../etc/config'):
+    conf = ConfigParser()
+    conf.read(Cfile)
+    conf.set(section, option, value)
+    conf.write(open(Cfile, 'w'))
 
 
 def getInputFileTuple():
-    inputPath = '../input/'
+    'get the input tuple of the file'
+    inputPath = os.getcwd() + '/../temp/'
     listDir = os.listdir(inputPath)
     t = {}
+    t.fromkeys('tx')
     for name in listDir:
         if name.endswith('.txt'):
-            t['txt'] = os.path.join(inputPath, name)
+            t['t'] = os.path.join(inputPath, name)
         if name.endswith('.xls') or name.endswith('.xlsx'):
-            t['xls'] = os.path.join(inputPath, name)
+            t['x'] = os.path.join(inputPath, name)
     return t
 
+
+def envCheck():
+    'Check the file system'
+    dirStruct = ['input', 'output', 'temp']
+    dirStruct = ['../' + d for d in dirStruct]
+    for d in dirStruct:
+        if not os.path.exists(d):
+            os.mkdir(d)
+
+
+def clrPath(rootdir):
+    filelist = os.listdir(rootdir)
+    for f in filelist:
+        filepath = os.path.join(rootdir, f)
+        if os.path.isfile(filepath) and (f.endswith('.txt')
+                                         or f.endswith('.xls') or
+                                         f.endswith('.xlsx')):
+            os.remove(filepath)
+            print filepath+" removed!"
+        elif os.path.isdir(filepath):
+            shutil.rmtree(filepath, True)
+            print "dir "+filepath+" removed!"
 
 if __name__ == '__main__':
     print __doc__

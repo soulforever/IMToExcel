@@ -1,11 +1,9 @@
-# encoding=utf-8
 [IM]
-# 统计信息的分割符号
-DividSymbol = +
-# 统计信息的正则表达式
-Regex = \S+(\+\S+)+
-# 统计开始的时间
-StartTime = 2014-09-15 18:42:15
+dividsymbol = +
+regex = ^.+(\+.+){4}$
+starttime = 2014-09-17 23:15:02
+
 [EXCEL]
-#信息录入的起始位置的
-StartCol = 1
+startcol = 1
+sheet = 'sheet1'
+

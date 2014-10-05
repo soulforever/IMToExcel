@@ -50,7 +50,7 @@ class myexcel(excel.excel):
                     return (row, col)
 
     def __getTittle(self, sheet):
-        'Get the title tuple of the the sheet by key'
+        'Get the title list of the the sheet by key'
         t = self.__getBound(sheet)
         for row in range(1, t[0]):
             cell = self.getCell(sheet, row, 1)
@@ -68,7 +68,7 @@ class myexcel(excel.excel):
         if div in regKeyWord:
             div = '\\' + div
 
-        return (self.div.join(t), r'^.+(%s.+){%d}$' % (div, lenTitle))
+        return (self.div.join(t), r'^.+(%s.+){%d}$' % (div, lenTitle-1))
 
     def getNameDict(self, sheet):
         'Get the Name List from excel'
@@ -79,7 +79,7 @@ class myexcel(excel.excel):
                 return dict([(r, self.getCell(sheet, r, 1))
                              for r in range(row + 1, t[0])])
 
-    def write(self, sheet, dictIM, start=1):
+    def write(self, sheet, dictIM, start=2):
         t = self.__getBound(sheet)
         d = self.getNameDict(sheet)
         for row, name in d.items():
@@ -87,6 +87,7 @@ class myexcel(excel.excel):
                 for col in range(start, t[1]):
                     self.setCell(sheet, row, col, dictIM[name][col-start])
         self.save()
+        self.close()
 
 if __name__ == '__main__':
     print help(myexcel)

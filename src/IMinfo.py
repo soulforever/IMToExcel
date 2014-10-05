@@ -19,6 +19,7 @@ def readIMInfo(IMFile, regex, div):
         for line in f:
             if reInfo.match(line.strip()):
                 li = line.strip().split(div)
+                li = [unicode(d, 'utf-8') for d in li]
                 dictInfo[li[0]] = li[1:]
     return dictInfo
 
